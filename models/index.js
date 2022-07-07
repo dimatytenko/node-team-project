@@ -5,6 +5,7 @@ const User = varUser.User;
 const joiSchema = {
   userAdd: varUser.joiSchema.userAdd,
   userLogin: varUser.joiSchema.userLogin,
+  userUpdate: varUser.joiSchema.userUpdate,
   dayAdd: varDay.joiSchema.dayAdd,
 };
 
