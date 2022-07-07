@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
 const codeRegexp = {
-  PASSWORD: /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+  PASSWORD: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/,
 };
 
 const userSchema = Schema(
