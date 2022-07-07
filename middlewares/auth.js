@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
 
     const { id } = jwt.verify(token, TOKEN_KEY);
     const user = await User.findById(id);
-    if (!user || !user.token) {
+    if (!user || token !== user.token) {
       throw new Error();
     }
     req.user = user;
