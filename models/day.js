@@ -8,7 +8,7 @@ const daySchema = Schema(
       type: Date,
       default: new Date(),
     },
-    protuct_id: {
+    product_id: {
       type: Schema.Types.ObjectId,
       ref: 'products',
       required: true,
