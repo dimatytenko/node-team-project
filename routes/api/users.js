@@ -2,18 +2,18 @@ const express = require('express');
 
 const router = express.Router();
 
-// const { users: ctrl } = require('../../controllers');
+const { users: ctrl } = require('../../controllers');
 
-// const { schemaValidation, auth } = require('../../middlewares');
+const { schemaValidation, auth } = require('../../middlewares');
 
-// const { joiRegisterSchema, joiLoginSchema } = require('../../models/user');
+const {
+  joiSchema: { userAdd, userLogin },
+} = require('../../models');
 
-// router.post('/register', schemaValidation(joiRegisterSchema), ctrl.register);
+router.post('/register', schemaValidation(userAdd), ctrl.register);
 
-// router.post('/login', schemaValidation(joiLoginSchema), ctrl.login);
+router.post('/login', schemaValidation(userLogin), ctrl.login);
 
-// router.post('/logout', auth, ctrl.logout);
-
-// router.get('/current', auth, ctrl.getCurrent);
+router.post('/logout', auth, ctrl.logout);
 
 module.exports = router;

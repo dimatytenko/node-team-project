@@ -30,6 +30,9 @@ module.exports = {
       200: {
         description: 'User has been logged in',
       },
+      400: {
+        description: 'Bad Request',
+      },
       401: {
         description: 'Invalid credentials',
       },
