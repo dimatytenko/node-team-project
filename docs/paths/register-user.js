@@ -37,6 +37,9 @@ module.exports = {
       400: {
         description: 'User creation error',
       },
+      409: {
+        description: 'Email is already being used',
+      },
       500: {
         description: 'Server error',
       },

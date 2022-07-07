@@ -30,7 +30,7 @@ const Day = model('calendar', daySchema);
 
 const dayAdd = Joi.object({
   date: Joi.date().required(),
-  weight: Joi.number.positive().required(),
+  weight: Joi.number().positive().required(),
 });
 
 const joiSchema = { dayAdd };
