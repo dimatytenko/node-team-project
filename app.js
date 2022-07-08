@@ -10,6 +10,7 @@ require('dotenv').config();
 const app = express();
 
 const usersRouter = require('./routes/api/users');
+const productsRouter = require('./routes/api/products');
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 app.use('/api/users', usersRouter);
+app.use('/api/products', productsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
