@@ -1,7 +1,10 @@
 module.exports = {
   tags: [
     {
-      name: 'Calendar',
+      name: 'Public',
+    },
+    {
+      name: 'Diary',
     },
     {
       name: 'Products',
