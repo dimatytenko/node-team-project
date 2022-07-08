@@ -2,10 +2,15 @@ const { Product } = require('../../models');
 const { calcDailyRate } = require('../../helpers/formulas');
 const calculator = async (req, res, next) => {
   try {
-    const { height, age, currentWeight, desiredWeight, bloodType } = req.body;
-    const dailyRate = calcDailyRate(height, age, desiredWeight, currentWeight);
+    const { blood, height, age, weight_current, weight_desired } = req.body;
+    const dailyRate = calcDailyRate(
+      height,
+      age,
+      weight_desired,
+      weight_current,
+    );
     const allNotHealthy = await Product.find({
-      'groupBloodNotAllowed[bloodType]': false,
+      'groupBloodNotAllowed[blood]': false,
     });
     const result = new Set();
     for (item of Array.from({ length: allNotHealthy.length }, (_, i) => i)) {
