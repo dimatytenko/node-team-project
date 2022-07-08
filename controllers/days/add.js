@@ -12,13 +12,13 @@ const addDay = async (req, res, next) => {
   //   console.log(weight);
   //   console.log(userId);
 
-  const produtc = await Product.findById(productIdSearch);
+  const product = await Product.findById(productIdSearch);
 
-  if (!produtc) {
+  if (!product) {
     throw BadRequest();
   }
 
-  const { _id: productId } = produtc;
+  const { _id: productId } = product;
 
   //   console.log(productId);
 
