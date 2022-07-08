@@ -42,7 +42,7 @@ const calcProportion = (whole, kKal, path) => {
 // (100 gram / 320 kkal) = (112 gram / x kkal)
 // ==> 358.4 kkal
 
-module.export = {
+module.exports = {
   calcDailyRate,
   calcConsumed,
   calcLeft,

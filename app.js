@@ -12,6 +12,7 @@ const app = express();
 const usersRouter = require('./routes/api/users');
 const daysRouter = require('./routes/api/days');
 const productsRouter = require('./routes/api/products');
+const publicRouter = require('./routes/api/public');
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
@@ -23,7 +24,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 app.use('/api/users', usersRouter);
 app.use('/api/days', daysRouter);
 app.use('/api/products', productsRouter);
-
+app.use('/api/public', publicRouter);
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
 });
