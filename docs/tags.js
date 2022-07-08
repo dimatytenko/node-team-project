@@ -1,7 +1,7 @@
 module.exports = {
   tags: [
     {
-      name: 'Calculator',
+      name: 'Public',
     },
     {
       name: 'Diary',
