@@ -39,7 +39,7 @@ const addDay = async (req, res, next) => {
   });
 
   result._doc.calories = Math.round(
-    (weight * produtc._doc.calories) / produtc._doc.weight,
+    (weight * product._doc.calories) / product._doc.weight,
   );
 
   // console.log(result);
