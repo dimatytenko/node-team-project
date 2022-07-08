@@ -1,6 +1,6 @@
 module.exports = {
   post: {
-    tags: ['Calculator'],
+    tags: ['Public'],
     summary: 'Get the daily kcal rate and a list of non-recommended products',
     responses: {
       200: {
