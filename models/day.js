@@ -26,10 +26,11 @@ const daySchema = Schema(
   { versionKey: false, timestamps: true },
 );
 
-const Day = model('calendar', daySchema);
+const Day = model('calendar', daySchema, 'calendar');
 
 const dayAdd = Joi.object({
   date: Joi.date().required(),
+  productId: Joi.string().required(),
   weight: Joi.number().positive().required(),
 });
 

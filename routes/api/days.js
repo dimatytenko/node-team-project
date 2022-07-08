@@ -2,14 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
-// // const {
-// //   ctrlWrapper,
-// //   validation,
-// //   isValidId,
-// //   tokenCheck,
-// // } = require('../../middlewares');
-// const { contacts: ctrl } = require('../../controllers');
-// const { joiSchema } = require('../../models');
+const { ctrlWrapper, auth, schemaValidation } = require('../../middlewares');
+const { days: ctrl } = require('../../controllers');
+const { joiSchema } = require('../../models');
 
 // router.get('/', tokenCheck, ctrlWrapper(ctrl.listContacts));
 
@@ -20,12 +15,12 @@ const router = express.Router();
 //   ctrlWrapper(ctrl.getContactById),
 // );
 
-// router.post(
-//   '/',
-//   tokenCheck,
-//   validation(joiSchema.contactAdd),
-//   ctrlWrapper(ctrl.addContact),
-// );
+router.post(
+  '/',
+  auth,
+  schemaValidation(joiSchema.dayAdd),
+  ctrlWrapper(ctrl.addDay),
+);
 
 // router.delete(
 //   '/:contactId',
