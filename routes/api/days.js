@@ -22,12 +22,7 @@ router.post(
   ctrlWrapper(ctrl.addDay),
 );
 
-// router.delete(
-//   '/:contactId',
-//   tokenCheck,
-//   isValidId(),
-//   ctrlWrapper(ctrl.removeContactById),
-// );
+router.delete('/:dayId', auth, ctrlWrapper(ctrl.removeDay));
 
 // router.put(
 //   '/:contactId',
