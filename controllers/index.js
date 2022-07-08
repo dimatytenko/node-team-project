@@ -1,5 +1,5 @@
 const users = require('./users');
-// const products = require('/products');
+const products = require('./products');
 const days = require('./days');
 
-module.exports = { users, days };
+module.exports = { users, days, products };
