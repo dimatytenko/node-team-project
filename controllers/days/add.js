@@ -7,20 +7,15 @@ const addDay = async (req, res, next) => {
   const { _id: userId } = req.user;
   let date;
 
-  //   console.log(dateString);
-  //   console.log(productIdSearch);
-  //   console.log(weight);
-  //   console.log(userId);
+  const [year, month, day] = dateString.split('-');
 
   const product = await Product.findById(productIdSearch);
 
-  if (!product) {
+  if (!product || !year || !month || !day || year.length < 4) {
     throw BadRequest();
   }
 
   const { _id: productId } = product;
-
-  //   console.log(productId);
 
   try {
     date = new Date(dateString);
@@ -29,7 +24,6 @@ const addDay = async (req, res, next) => {
     error.message = 'bad request';
     next(error);
   }
-  //   console.log(date.toDateString());
 
   const result = await Day.create({
     product_id: productId,
@@ -41,8 +35,6 @@ const addDay = async (req, res, next) => {
   result._doc.calories = Math.round(
     (weight * product._doc.calories) / product._doc.weight,
   );
-
-  // console.log(result);
 
   res.status(201).json({
     status: 'success',
