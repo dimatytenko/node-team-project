@@ -1,12 +1,16 @@
 const { Schema, model } = require('mongoose');
 
 const productSchema = Schema({
-  weight: {
-    type: Number,
-    default: 0,
+  categories: [String],
+  weight: Number,
+  title: {
+    en: String,
+    ua: String,
   },
+  calories: Number,
+  groupBloodNotAllowed: Array,
 });
 
-const Product = model('products', productSchema);
+const Product = model('product', productSchema);
 
 module.exports = Product;
