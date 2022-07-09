@@ -22,11 +22,11 @@ const calculator = async (req, res) => {
     status: 'success',
     code: 200,
     data: {
-      consumed: 0,
       left: dailyRate,
+      consumed: 0,
+      dailyRate,
       PercentOfNormal: 0,
       user,
-      dailyRate,
       notHealthy,
     },
   });
