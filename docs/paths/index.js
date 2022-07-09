@@ -6,6 +6,7 @@ const addDiaryEntry = require('./addDiaryEntry');
 const removeDiaryEntry = require('./removeDiaryEntry');
 const countCaloriesPublic = require('./countCalories-public');
 const countCaloriesPrivate = require('./countCalories-private');
+const getStatsByDay = require('./getStatsByDay');
 
 module.exports = {
   paths: {
@@ -17,5 +18,6 @@ module.exports = {
     '/days': { ...addDiaryEntry },
     '/days/:dayId': { ...removeDiaryEntry },
     '/public/calculator': { ...countCaloriesPublic },
+    '/days/:day': { ...getStatsByDay }, //TODO: відредагувати по створенню ендпоінта
   },
 };
