@@ -37,7 +37,7 @@ module.exports = {
     },
 
     responses: {
-      200: {
+      201: {
         description: 'Product entry added',
         content: {
           'application/json': {
