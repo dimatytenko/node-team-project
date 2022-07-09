@@ -52,6 +52,10 @@ const userSchema = Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
+    daily_rate: {
+      type: Number,
+      default: null,
+    },
     token: {
       type: String,
       default: null,
