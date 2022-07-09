@@ -23,7 +23,7 @@ const calculator = async (req, res) => {
     code: 200,
     data: {
       consumed: 0,
-      left: 0,
+      left: dailyRate,
       PercentOfNormal: 0,
       user,
       dailyRate,
