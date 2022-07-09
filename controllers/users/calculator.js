@@ -3,8 +3,8 @@ const { calcDailyRate } = require('../../helpers/formulas');
 const findNotHealthyFood = require('../../helpers/findNotHealthyFood');
 const calculator = async (req, res) => {
   const { blood, height, age, weight_current, weight_desired } = req.body;
-  const { _id } = req.user;
-  const user = await User.findByIdAndUpdate(
+  const { _id, name } = req.user;
+  await User.findByIdAndUpdate(
     _id,
     {
       blood,
@@ -22,11 +22,16 @@ const calculator = async (req, res) => {
     status: 'success',
     code: 200,
     data: {
-      left: dailyRate,
-      consumed: 0,
       dailyRate,
-      PercentOfNormal: 0,
-      user,
+      user: {
+        _id,
+        name,
+        blood,
+        height,
+        age,
+        weight_current,
+        weight_desired,
+      },
       notHealthy,
     },
   });
