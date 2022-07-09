@@ -16,10 +16,10 @@ router.post('/login', schemaValidation(userLogin), ctrl.login);
 
 router.post('/logout', auth, ctrl.logout);
 router.patch(
-  '/calculator',
+  '/update',
   auth,
   schemaValidation(userUpdate),
-  ctrlWrapper(ctrl.calculator),
+  ctrlWrapper(ctrl.update),
 );
 
 module.exports = router;
