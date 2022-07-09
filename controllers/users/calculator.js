@@ -15,14 +15,13 @@ const calculator = async (req, res) => {
     },
     { new: true },
   );
-  const dailyRate = calcDailyRate(height, age, weight_desired, weight_current);
+  const daily_rate = calcDailyRate(height, age, weight_desired, weight_current);
 
   const notHealthy = await findNotHealthyFood(blood);
   res.json({
     status: 'success',
     code: 200,
     data: {
-      dailyRate,
       user: {
         _id,
         name,
@@ -31,6 +30,7 @@ const calculator = async (req, res) => {
         age,
         weight_current,
         weight_desired,
+        daily_rate,
       },
       notHealthy,
     },
