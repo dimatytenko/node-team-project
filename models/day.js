@@ -17,6 +17,10 @@ const daySchema = Schema(
       type: Number,
       default: 0,
     },
+    calories: {
+      type: Number,
+      default: null,
+    },
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'users',
