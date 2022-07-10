@@ -1,9 +1,8 @@
 module.exports = {
-  post: {
-    tags: ['Public'],
-    summary:
-      'Get the daily kcal rate and a list of non-recommended products for an unregistered user',
-    parameters: [],
+  patch: {
+    tags: ['Users'],
+    summary: `Update the user's profile with the received fields and daily kcal rate. Get in response the daily kcal rate and a list of non-recommended products`,
+    security: [{ bearerAuth: [] }],
     requestBody: {
       required: 'true',
       content: {
@@ -62,10 +61,13 @@ module.exports = {
     responses: {
       200: {
         description:
-          'Daily kcal rate and a list of non-recommended products returned',
+          'User profile updated. Daily kcal rate and a list of non-recommended products returned',
       },
       400: {
         description: 'Bad request',
+      },
+      401: {
+        description: 'Not authorized',
       },
       500: {
         description: 'Server error',

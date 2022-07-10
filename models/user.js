@@ -8,6 +8,21 @@ const codeRegexp = {
 
 const userSchema = Schema(
   {
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+    },
+    name: {
+      type: String,
+      minLength: 3,
+      maxLength: 60,
+      required: [true, 'Name is required'],
+    },
     blood: {
       type: Number,
       enum: [1, 2, 3, 4],
@@ -36,21 +51,6 @@ const userSchema = Schema(
       max: 500,
       type: Number,
       default: null,
-    },
-    name: {
-      type: String,
-      minLength: 3,
-      maxLength: 60,
-      required: [true, 'Name is required'],
-    },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-    },
-    email: {
-      type: String,
-      required: [true, 'Email is required'],
-      unique: true,
     },
     daily_rate: {
       type: Number,

@@ -10,11 +10,11 @@ const {
   joiSchema: { userAdd, userLogin, userUpdate },
 } = require('../../models');
 
-router.post('/register', schemaValidation(userAdd), ctrl.register);
+router.post('/register', schemaValidation(userAdd), ctrlWrapper(ctrl.register));
 
-router.post('/login', schemaValidation(userLogin), ctrl.login);
+router.post('/login', schemaValidation(userLogin), ctrlWrapper(ctrl.login));
 
-router.post('/logout', auth, ctrl.logout);
+router.post('/logout', auth, ctrlWrapper(ctrl.logout));
 router.patch(
   '/calculator',
   auth,
