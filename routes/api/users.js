@@ -15,6 +15,9 @@ router.post('/register', schemaValidation(userAdd), ctrlWrapper(ctrl.register));
 router.post('/login', schemaValidation(userLogin), ctrlWrapper(ctrl.login));
 
 router.post('/logout', auth, ctrlWrapper(ctrl.logout));
+
+router.get('/current', auth, ctrlWrapper(ctrl.getCurrent));
+
 router.patch(
   '/calculator',
   auth,
