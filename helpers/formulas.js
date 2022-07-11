@@ -24,9 +24,8 @@ const calcLeft = (dailyRate, consumed) => {
 // ==> 610.8
 
 const calcPercentOf = (path, whole) => {
-  const percent = (100 * path) / whole;
-
-  return Number(percent.toFixed(2));
+  const percent = Math.round((100 * path) / whole);
+  return Number(percent);
 };
 // example
 // calcPercentOf(100, 1000)
