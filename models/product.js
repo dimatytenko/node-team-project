@@ -11,8 +11,6 @@ const productSchema = Schema({
   groupBloodNotAllowed: Array,
 });
 
-productSchema.index({ 'title.en': 'text', 'title.ua': 'text' });
-
 const Product = model('product', productSchema);
 
 module.exports = Product;
