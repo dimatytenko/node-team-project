@@ -8,6 +8,7 @@ const removeDiaryEntry = require('./removeDiaryEntry');
 const countCaloriesPublic = require('./countCalories-public');
 const countCaloriesPrivate = require('./countCalories-private');
 const getStatsByDay = require('./getStatsByDay');
+const getUnhealthyProducts = require('./getUnhealthyProducts');
 
 module.exports = {
   paths: {
@@ -17,9 +18,10 @@ module.exports = {
     '/users/current': { ...getCurrentUser },
     '/users/calculator': { ...countCaloriesPrivate },
     '/products': { ...getAllProducts },
+    '/products/unhealthy': { ...getUnhealthyProducts },
     '/days': { ...addDiaryEntry },
+    '/days/:day': { ...getStatsByDay }, //TODO: відредагувати по створенню ендпоінта
     '/days/{diaryId}': { ...removeDiaryEntry },
     '/public/calculator': { ...countCaloriesPublic },
-    '/users/:day': { ...getStatsByDay }, //TODO: відредагувати по створенню ендпоінта
   },
 };

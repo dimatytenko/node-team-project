@@ -1,16 +1,9 @@
 module.exports = {
   get: {
     tags: ['Products'],
-    summary:
-      'Get all the products matching the request. Without a query string, returns all products from the database',
+    summary: `Get all non recommended products by user's blood type`,
     security: [{ bearerAuth: [] }],
-    parameters: [
-      {
-        in: 'query',
-        name: 'search',
-        description: 'Product to find',
-      },
-    ],
+    parameters: [],
     responses: {
       200: {
         description: 'Products returned',
@@ -29,19 +22,21 @@ module.exports = {
                       items: {
                         type: 'object',
                         properties: {
-                          title: { type: 'string' },
-                          _id: { type: 'string' },
-                          categories: {
-                            type: 'array',
-                            items: { type: 'string' },
+                          product_id: {
+                            type: 'string',
                           },
-                          weight: { type: 'number' },
-                          calories: { type: 'number' },
-                          groupBloodNotAllowed: {
-                            type: 'array',
-                            items: {
-                              type: 'mixed',
-                              enum: [true, false, 'null'],
+                          product_title: {
+                            type: 'object',
+                            properties: {
+                              en: {
+                                type: 'string',
+                              },
+                              en: {
+                                type: 'string',
+                              },
+                              ua: {
+                                type: 'string',
+                              },
                             },
                           },
                         },
@@ -57,16 +52,11 @@ module.exports = {
                   total: 1,
                   products: [
                     {
-                      title: {
-                        en: 'Apple Golden',
-                        ua: 'Яблуко Голден',
+                      product_id: '5d51694802b2373622ff553b',
+                      product_title: {
+                        en: 'Chicken egg (dry yolk)',
+                        ua: 'Яйце куряче (жовток сухий)',
                       },
-                      _id: '5d51694902b2373622ff5c00',
-                      categories: ['fruit'],
-                      weight: 100,
-                      calories: 53,
-                      groupBloodNotAllowed: [null, false, false, false, false],
-                      __v: 0,
                     },
                   ],
                 },

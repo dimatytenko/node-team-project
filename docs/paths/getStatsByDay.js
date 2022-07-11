@@ -1,6 +1,6 @@
 module.exports = {
   get: {
-    tags: ['Users'],
+    tags: ['Diary'],
     summary: `Get user's statistics for a specific day -----------  In PROGRESS`,
     security: [{ bearerAuth: [] }],
     parameters: [

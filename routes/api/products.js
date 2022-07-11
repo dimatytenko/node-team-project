@@ -8,4 +8,6 @@ const { auth, ctrlWrapper } = require('../../middlewares');
 
 router.get('/', auth, ctrlWrapper(ctrl.getAll));
 
+router.get('/unhealthy', auth, ctrlWrapper(ctrl.getUnhealthy));
+
 module.exports = router;
