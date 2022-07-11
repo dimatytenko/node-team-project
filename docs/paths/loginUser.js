@@ -19,8 +19,8 @@ module.exports = {
               },
             },
             example: {
-              email: 'user@gmail.com',
-              password: '5734YYG8',
+              email: 'user2@gmail.com',
+              password: '123456325YGi',
             },
           },
         },

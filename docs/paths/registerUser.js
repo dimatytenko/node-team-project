@@ -22,9 +22,9 @@ module.exports = {
               },
             },
             example: {
-              email: 'user@gmail.com',
-              password: '5734YYG8',
-              name: 'Archi',
+              email: 'user2@gmail.com',
+              password: '123456325YGi',
+              name: 'User',
             },
           },
         },
