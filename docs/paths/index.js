@@ -18,7 +18,7 @@ module.exports = {
     '/users/calculator': { ...countCaloriesPrivate },
     '/products': { ...getAllProducts },
     '/days': { ...addDiaryEntry },
-    '/days/:dayId': { ...removeDiaryEntry },
+    '/days/{diaryId}': { ...removeDiaryEntry },
     '/public/calculator': { ...countCaloriesPublic },
     '/users/:day': { ...getStatsByDay }, //TODO: відредагувати по створенню ендпоінта
   },

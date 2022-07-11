@@ -8,29 +8,32 @@ const daySchema = Schema(
       type: Date,
       default: new Date(),
     },
-    product_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'products',
-      required: true,
-    },
-    weight: {
-      type: Number,
-      default: 0,
-    },
-    calories: {
-      type: Number,
-      default: null,
-    },
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'users',
       required: true,
     },
+    daily_rate: {
+      type: Number,
+      default: 0,
+    },
+    left: {
+      type: Number,
+      default: 0,
+    },
+    consumed: {
+      type: Number,
+      default: 0,
+    },
+    percentage_of_normal: {
+      type: Number,
+      default: 0,
+    },
   },
   { versionKey: false, timestamps: true },
 );
 
-const Day = model('calendar', daySchema, 'calendar');
+const Day = model('days', daySchema, 'days');
 
 const dayAdd = Joi.object({
   date: Joi.date().required(),

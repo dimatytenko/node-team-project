@@ -28,7 +28,7 @@ module.exports = {
             },
             example: {
               productId: '5d51694802b2373622ff553b',
-              weight: 4565,
+              weight: 165,
               date: '2022-07-08',
             },
           },
@@ -54,19 +54,20 @@ module.exports = {
                   type: 'object',
                   properties: {
                     _id: {
-                      type: 'ObjectId',
-                      format: 'string',
-                      description: 'уникальный ID, генерится базой данных',
-                    },
-                    date: {
-                      type: 'date',
-                      format: 'isoDate',
-                      description: 'дата когда продукт был съеден',
+                      type: 'string',
+                      format: 'ObjectId',
+                      description:
+                        'уникальный ID в журнале (использовать для удаления записи из журнала (diary))',
                     },
                     product_id: {
-                      type: 'ObjectId',
-                      format: 'string',
+                      type: 'string',
+                      format: 'ObjectId',
                       description: 'уникальный ID продукта',
+                    },
+                    day_id: {
+                      type: 'string',
+                      format: 'ObjectId',
+                      description: 'уникальный ID дня',
                     },
                     weight: {
                       type: 'integer',
@@ -80,8 +81,8 @@ module.exports = {
                         'колличество килокалорий в съеденом продукте',
                     },
                     user_id: {
-                      type: 'ObjectId',
-                      format: 'string',
+                      type: 'string',
+                      format: 'ObjectId',
                       description:
                         'уникальный ID пользователя которому пренадлежит данная запись',
                     },
@@ -102,14 +103,14 @@ module.exports = {
                 status: 'success',
                 code: 201,
                 data: {
-                  _id: '62c969d0e6220e36d6d371ca',
-                  date: '2022-07-08T00:00:00.000Z',
+                  _id: '62cb3422d9b4ae6849a6e38e',
                   product_id: '5d51694802b2373622ff553b',
-                  weight: 4565,
-                  calories: 28440,
+                  day_id: '62cb25463a3dc076b39df817',
                   user_id: '62c60c0cd34841581a4cc208',
-                  createdAt: '2022-07-09T11:43:12.388Z',
-                  updatedAt: '2022-07-09T11:43:12.388Z',
+                  weight: 165,
+                  calories: 1028,
+                  createdAt: '2022-07-10T20:18:42.893Z',
+                  updatedAt: '2022-07-10T20:18:42.893Z',
                 },
               },
             },
