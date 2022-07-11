@@ -14,7 +14,6 @@ const { joiSchema } = require('../../models');
 //   isValidId(),
 //   ctrlWrapper(ctrl.getContactById),
 // );
-router.get('/', auth, ctrlWrapper(ctrl.getForDay));
 
 router.post(
   '/',
