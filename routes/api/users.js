@@ -25,4 +25,6 @@ router.patch(
   ctrlWrapper(ctrl.calculator),
 );
 
+router.get('/:day', auth, ctrlWrapper(ctrl.getForDay));
+
 module.exports = router;
