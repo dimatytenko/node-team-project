@@ -5,7 +5,7 @@ module.exports = {
         type: 'object',
         required: ['email', 'password', 'name'],
         properties: {
-          id: {
+          _id: {
             type: 'string',
             description: 'Backend-generated unique identifier',
           },
@@ -79,7 +79,53 @@ module.exports = {
           daily_rate: 1353,
         },
       },
-      Product: {},
+      Product: {
+        type: 'object',
+        properties: {
+          _id: {
+            type: 'string',
+            description: 'Backend-generated unique identifier',
+          },
+          categories: {
+            description: `Product categories`,
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          weight: {
+            type: 'number',
+            description: `Product weight in grams`,
+          },
+          title: {
+            type: 'object',
+            properties: {
+              en: { type: 'string' },
+              ua: { type: 'string' },
+            },
+            description: `Product name`,
+          },
+          calories: {
+            type: 'number',
+            description: `Product calories per 100 grams`,
+          },
+          groupBloodNotAllowed: {
+            type: 'array',
+            description: `Boolean if this product is recommended for a particular blood type`,
+          },
+        },
+        example: {
+          title: {
+            en: 'Apple compote',
+            ua: 'Яблучний компот',
+          },
+          _id: '5d51694902b2373622ff5f81',
+          categories: ['soft drinks'],
+          weight: 100,
+          calories: 85,
+          groupBloodNotAllowed: [null, false, false, false, false],
+        },
+      },
       Day: {},
     },
     securitySchemes: {

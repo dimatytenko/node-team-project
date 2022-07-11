@@ -1,7 +1,8 @@
-const registerUser = require('./register-user');
-const loginUser = require('./login-user');
-const logoutUser = require('./logout-user');
-const getAllProducts = require('./getAll-products');
+const registerUser = require('./registerUser');
+const loginUser = require('./loginUser');
+const logoutUser = require('./logoutUser');
+const getCurrentUser = require('./getCurrentUser');
+const getAllProducts = require('./getAllProducts');
 const addDiaryEntry = require('./addDiaryEntry');
 const removeDiaryEntry = require('./removeDiaryEntry');
 const countCaloriesPublic = require('./countCalories-public');
@@ -13,11 +14,12 @@ module.exports = {
     '/users/register': { ...registerUser },
     '/users/login': { ...loginUser },
     '/users/logout': { ...logoutUser },
+    '/users/current': { ...getCurrentUser },
     '/users/calculator': { ...countCaloriesPrivate },
     '/products': { ...getAllProducts },
     '/days': { ...addDiaryEntry },
     '/days/{diaryId}': { ...removeDiaryEntry },
     '/public/calculator': { ...countCaloriesPublic },
-    '/days/:day': { ...getStatsByDay }, //TODO: відредагувати по створенню ендпоінта
+    '/users/:day': { ...getStatsByDay }, //TODO: відредагувати по створенню ендпоінта
   },
 };

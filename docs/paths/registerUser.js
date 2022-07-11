@@ -1,7 +1,7 @@
 module.exports = {
   post: {
     tags: ['Users'],
-    summary: 'Login user',
+    summary: 'Register a new user',
     parameters: [],
     requestBody: {
       required: 'true',
@@ -17,24 +17,28 @@ module.exports = {
               password: {
                 type: 'string',
               },
+              name: {
+                type: 'string',
+              },
             },
             example: {
-              email: 'user@gmail.com',
-              password: '5734YYG8',
+              email: 'user2@gmail.com',
+              password: '123456325YGi',
+              name: 'User',
             },
           },
         },
       },
     },
     responses: {
-      200: {
-        description: 'User has been logged in',
+      201: {
+        description: 'User has been created',
       },
       400: {
-        description: 'Bad Request',
+        description: 'User creation error',
       },
-      401: {
-        description: 'Invalid credentials',
+      409: {
+        description: 'Email is already being used',
       },
       500: {
         description: 'Server error',
