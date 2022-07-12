@@ -7,15 +7,15 @@ const removeDay = async (req, res, next) => {
   const { diaryId } = req.params;
   const { _id: userId } = req.user;
 
-  console.log(diaryId);
-  console.log(userId);
+  // console.log(diaryId);
+  // console.log(userId);
 
   if (!mongoose.Types.ObjectId.isValid(diaryId)) {
     throw NotFound();
   }
 
-  console.log(diaryId);
-  console.log(userId);
+  // console.log(diaryId);
+  // console.log(userId);
 
   const result = await Diary.findOneAndRemove({
     _id: diaryId,
@@ -31,7 +31,7 @@ const removeDay = async (req, res, next) => {
 
   const { daily_rate: dailyRrate, consumed } = dayUser;
 
-  await Day.findByIdAndUpdate(
+  const daySummary = await Day.findByIdAndUpdate(
     dayId,
     {
       left: calcLeft(dailyRrate, consumed - calories),
@@ -47,7 +47,10 @@ const removeDay = async (req, res, next) => {
     status: 'success',
     code: 200,
     message: 'Product has been removed',
-    data: result,
+    data: {
+      removedProduct: result,
+      summary: daySummary,
+    },
   });
 };
 
