@@ -3,7 +3,6 @@ const login = require('./login');
 const logout = require('./logout');
 const getCurrent = require('./getCurrent');
 const calculator = require('./calculator');
-const getForDay = require('./getForDay');
 
 module.exports = {
   register,
@@ -11,5 +10,4 @@ module.exports = {
   logout,
   getCurrent,
   calculator,
-  getForDay,
 };
