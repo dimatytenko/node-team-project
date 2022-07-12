@@ -24,7 +24,7 @@ const getForDay = async (req, res) => {
 
   const productsForDay = await Diary.find({
     $and: [{ user_id: userId }, { day_id: datyId }],
-  });
+  }).populate('product_id');
 
   res.status(200).json({
     status: 'success',
