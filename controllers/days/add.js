@@ -1,6 +1,6 @@
 const { Day, Product, Diary } = require('../../models');
 
-const { BadRequest } = require('http-errors');
+const { BadRequest, NotFound } = require('http-errors');
 const { calcLeft, calcPercentOf } = require('../../helpers/formulas');
 
 const addDay = async (req, res, next) => {
@@ -10,10 +10,14 @@ const addDay = async (req, res, next) => {
 
   const [year, month, day] = dateString.split('-');
 
+  if (!year || !month || !day || year.length < 4) {
+    throw BadRequest('Bad request (the wrong date format)');
+  }
+
   const product = await Product.findById(productIdSearch);
 
-  if (!product || !year || !month || !day || year.length < 4) {
-    throw BadRequest();
+  if (!product) {
+    throw NotFound('Product not found');
   }
 
   const {
@@ -26,34 +30,28 @@ const addDay = async (req, res, next) => {
     dateRequested = new Date(dateString);
   } catch (error) {
     error.status = 400;
-    error.message = 'bad request (the wrong date format)';
+    error.message = 'Bad request (the wrong date format)';
     next(error);
   }
 
   // console.log(dateRequested);
   // console.log(userId);
 
-  let dayUserArr = await Day.find({ date: dateRequested, user_id: userId });
+  const dayUserArr = await Day.find({ date: dateRequested, user_id: userId });
   let dayUser = {};
   // console.log(dayUser);
 
   if (dayUserArr.length == 0) {
     dayUser = await Day.create({ date: dateRequested, user_id: userId });
-    console.log('создали');
+    //  console.log('создали');
   } else {
-    console.log('нашли');
+    //  console.log('нашли');
     dayUser = dayUserArr[0];
   }
 
   // console.log(dayUser);
 
-  const {
-    _id: dayId,
-    daily_rate,
-    left,
-    consumed,
-    percentage_of_normal,
-  } = dayUser;
+  const { _id: dayId, consumed } = dayUser;
 
   // console.log(dayUser);
   // console.log(dayId);
@@ -76,9 +74,9 @@ const addDay = async (req, res, next) => {
     calories,
   });
 
-  // dailyRrate;
+  const { _id: diaryId } = result;
 
-  await Day.findByIdAndUpdate(
+  const daySummary = await Day.findByIdAndUpdate(
     dayId,
     {
       daily_rate: dailyRrate,
@@ -91,6 +89,8 @@ const addDay = async (req, res, next) => {
     },
   );
 
+  const addedProduct = await Diary.findById(diaryId).populate('product_id');
+
   // result._doc.calories = Math.round(
   //   (weight * product._doc.calories) / product._doc.weight,
   // );
@@ -98,7 +98,10 @@ const addDay = async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     code: 201,
-    data: result,
+    data: {
+      addedProduct,
+      summary: daySummary,
+    },
   });
 };
 
