@@ -29,7 +29,7 @@ const getForDay = async (req, res) => {
   res.status(200).json({
     status: 'success',
     code: 200,
-    data: { searchForDay, productsForDay },
+    data: { summary: searchForDay, productsForDay },
   });
 };
 
