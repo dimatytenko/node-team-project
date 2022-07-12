@@ -15,6 +15,8 @@ const { joiSchema } = require('../../models');
 //   ctrlWrapper(ctrl.getContactById),
 // );
 
+router.get('/:day', auth, ctrlWrapper(ctrl.getForDay));
+
 router.post(
   '/',
   auth,
