@@ -1,4 +1,4 @@
-const { Day } = require('../../models');
+const { Day, Diary } = require('../../models');
 
 const { BadRequest } = require('http-errors');
 
@@ -12,18 +12,24 @@ const getForDay = async (req, res) => {
     throw BadRequest('invalid date');
   }
 
-  const searchForDay = await Day.find({
+  const searchForDay = await Day.findOne({
     $and: [{ user_id: userId }, { date: dateString }],
   });
 
-  if (searchForDay.length < 1) {
+  if (!searchForDay) {
     throw BadRequest(`no data for ${dateString}`);
   }
+
+  const { _id: datyId } = searchForDay;
+
+  const productsForDay = await Diary.find({
+    $and: [{ user_id: userId }, { day_id: datyId }],
+  });
 
   res.status(200).json({
     status: 'success',
     code: 200,
-    data: { searchForDay },
+    data: { searchForDay, productsForDay },
   });
 };
 
