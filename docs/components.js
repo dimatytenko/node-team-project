@@ -111,6 +111,7 @@ module.exports = {
           },
           groupBloodNotAllowed: {
             type: 'array',
+            items: { type: 'mixed' },
             description: `Boolean if this product is recommended for a particular blood type`,
           },
         },

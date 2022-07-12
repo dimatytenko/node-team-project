@@ -6,19 +6,15 @@ const getAll = async (req, res) => {
   if (!req.query.search) {
     products = await Product.find({});
   } else {
-    const { search: searchString } = req.query;
+    const { search } = req.query;
+    const searchString = search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'); //экранирование строки
 
-    //* FULL TEXT SEARCH - пошук з індексами , шукає лише по окремих словах, а не по частинках слова
     products = await Product.find({
-      $text: { $search: searchString },
-    });
-
-    if (products.length === 0) {
-      //* PARTIAL TEXT SEARCH - пошук без індексів, але знаходить і частинки слова, і цілі слова (часткове співпадіння)
-      products = await Product.find({
-        'title.en': { $regex: searchString, $options: 'i' },
-      }).limit(20);
-    }
+      $or: [
+        { 'title.en': { $regex: searchString, $options: 'i' } },
+        { 'title.ua': { $regex: searchString, $options: 'i' } },
+      ],
+    }).limit(50);
   }
 
   res.status(200).json({
