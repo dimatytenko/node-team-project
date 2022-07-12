@@ -16,7 +16,7 @@ const getForDay = async (req, res) => {
     $and: [{ user_id: userId }, { date: dateString }],
   });
 
-  if (searchForDay.length < 1) {
+  if (!searchForDay) {
     throw BadRequest(`no data for ${dateString}`);
   }
 
