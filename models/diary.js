@@ -6,7 +6,7 @@ const diarySchema = Schema(
   {
     product_id: {
       type: Schema.Types.ObjectId,
-      ref: 'products',
+      ref: 'product',
       required: true,
     },
     day_id: {
@@ -16,7 +16,7 @@ const diarySchema = Schema(
     },
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: 'users',
+      ref: 'user',
       required: true,
     },
     weight: {

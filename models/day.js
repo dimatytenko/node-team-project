@@ -10,7 +10,7 @@ const daySchema = Schema(
     },
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: 'users',
+      ref: 'user',
       required: true,
     },
     daily_rate: {
