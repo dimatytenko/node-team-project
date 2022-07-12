@@ -12,7 +12,7 @@ const getForDay = async (req, res) => {
     throw BadRequest('invalid date');
   }
 
-  const searchForDay = await Day.find({
+  const searchForDay = await Day.findOne({
     $and: [{ user_id: userId }, { date: dateString }],
   });
 
@@ -20,7 +20,7 @@ const getForDay = async (req, res) => {
     throw BadRequest(`no data for ${dateString}`);
   }
 
-  const { _id: datyId } = searchForDay[0];
+  const { _id: datyId } = searchForDay;
 
   const productsForDay = await Diary.find({
     $and: [{ user_id: userId }, { day_id: datyId }],
@@ -30,10 +30,6 @@ const getForDay = async (req, res) => {
     status: 'success',
     code: 200,
     data: { searchForDay, productsForDay },
-    // data: {
-    //   ForDay: { ...searchForDay },
-    //   productsForDay: { ...productsForDay },
-    // }, /// можно как вариант вернуть без массива
   });
 };
 
