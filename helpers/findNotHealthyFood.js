@@ -2,7 +2,7 @@ const { Product } = require('../models');
 const MAX_SIZE = 4;
 const findNotHealthyFood = async blood => {
   const allNotHealthy = await Product.find({
-    'groupBloodNotAllowed[blood]': false,
+    ['groupBloodNotAllowed.' + blood]: true,
   });
   const result = new Set();
   for (_ of Array.from({ length: allNotHealthy.length }, (_, i) => i)) {
