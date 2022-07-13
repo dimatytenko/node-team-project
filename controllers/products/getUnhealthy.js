@@ -1,7 +1,6 @@
 const { Product } = require('../../models');
 
 const getUnhealthy = async (req, res) => {
-  console.log(req.query);
   const { blood } = req.user;
 
   const page = parseInt(req.query.page, 10) || 1;
