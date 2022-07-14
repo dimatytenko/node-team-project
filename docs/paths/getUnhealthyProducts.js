@@ -3,7 +3,27 @@ module.exports = {
     tags: ['Products'],
     summary: `Get all non recommended products by user's blood type`,
     security: [{ bearerAuth: [] }],
-    parameters: [],
+    parameters: [
+      {
+        in: 'query',
+        name: 'page',
+        schema: { type: 'integer' },
+        description: 'Page number for pagination. Default: 1',
+      },
+      {
+        in: 'query',
+        name: 'limit',
+        schema: { type: 'integer' },
+        description: 'Number of products per page. Default: 20',
+      },
+      {
+        in: 'query',
+        name: 'all',
+        schema: { type: 'boolean' },
+        description:
+          'If this parameter is specified with true, the entire list of unhealthy products will be returned',
+      },
+    ],
     responses: {
       200: {
         description: 'Products returned',

@@ -20,7 +20,7 @@ module.exports = {
     '/products': { ...getAllProducts },
     '/products/unhealthy': { ...getUnhealthyProducts },
     '/days': { ...addDiaryEntry },
-    '/days/:day': { ...getStatsByDay }, //TODO: відредагувати по створенню ендпоінта
+    '/days/{day}': { ...getStatsByDay },
     '/days/{diaryId}': { ...removeDiaryEntry },
     '/public/calculator': { ...countCaloriesPublic },
   },
