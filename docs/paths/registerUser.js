@@ -33,6 +33,31 @@ module.exports = {
     responses: {
       201: {
         description: 'User has been created',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                status: { type: 'string' },
+                code: { type: 'number' },
+                data: {
+                  properties: {
+                    name: { type: 'string' },
+                    email: { type: 'string' },
+                  },
+                },
+              },
+              example: {
+                status: 'success',
+                code: 201,
+                data: {
+                  email: 'user2@gmail.com',
+                  name: 'User',
+                },
+              },
+            },
+          },
+        },
       },
       400: {
         description: 'User creation error',

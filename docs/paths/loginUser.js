@@ -29,6 +29,40 @@ module.exports = {
     responses: {
       200: {
         description: 'User has been logged in',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                status: { type: 'string' },
+                code: { type: 'number' },
+                data: {
+                  properties: {
+                    token: { type: 'string' },
+                    user: {
+                      type: 'object',
+                      properties: {
+                        name: { type: 'string' },
+                        email: { type: 'string' },
+                      },
+                    },
+                  },
+                },
+              },
+              example: {
+                status: 'success',
+                code: 200,
+                data: {
+                  token: '...token...',
+                  user: {
+                    name: 'user1',
+                    email: 'user27890@gmail.com',
+                  },
+                },
+              },
+            },
+          },
+        },
       },
       400: {
         description: 'Bad Request',

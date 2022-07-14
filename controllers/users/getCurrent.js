@@ -13,15 +13,17 @@ const getCurrent = async (req, res) => {
   res.status(200).json({
     status: 'success',
     code: 200,
-    user: {
-      email,
-      name,
-      blood,
-      height,
-      age,
-      weight_current,
-      weight_desired,
-      daily_rate,
+    data: {
+      user: {
+        email,
+        name,
+        blood,
+        height,
+        age,
+        weight_current,
+        weight_desired,
+        daily_rate,
+      },
     },
   });
 };

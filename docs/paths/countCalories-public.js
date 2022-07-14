@@ -3,7 +3,7 @@ module.exports = {
     tags: ['Public'],
     summary:
       'Get the daily kcal rate and a list of non-recommended products for an unregistered user',
-    parameters: [],
+
     requestBody: {
       required: 'true',
       content: {
@@ -63,13 +63,73 @@ module.exports = {
       200: {
         description:
           'Daily kcal rate and a list of non-recommended products returned',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                status: { type: 'string' },
+                code: { type: 'number' },
+                data: {
+                  properties: {
+                    dailyRate: { type: 'number' },
+                    notHealthy: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          title: { type: 'string' },
+                          _id: { type: 'string' },
+                          categories: {
+                            type: 'array',
+                            items: { type: 'string' },
+                          },
+                          weight: { type: 'number' },
+                          calories: { type: 'number' },
+                          groupBloodNotAllowed: {
+                            type: 'array',
+                            items: {
+                              type: 'mixed',
+                              enum: [true, false, 'null'],
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              example: {
+                status: 'success',
+                code: 200,
+                data: {
+                  dailyRate: 1328.65,
+                  notHealthy: [
+                    {
+                      title: {
+                        en: 'Cottage cheese Chudo kiwi-banana',
+                        ua: 'Сирок Чудо ківі-банан',
+                      },
+                      _id: '5d51694902b2373622ff583c',
+                      categories: ['dairy'],
+                      weight: 100,
+                      calories: 123,
+                      groupBloodNotAllowed: [null, true, true, false, false],
+                      __v: 0,
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
       },
-      400: {
-        description: 'Bad request',
-      },
-      500: {
-        description: 'Server error',
-      },
+    },
+    400: {
+      description: 'Bad request',
+    },
+    500: {
+      description: 'Server error',
     },
   },
 };
