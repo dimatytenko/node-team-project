@@ -1,4 +1,6 @@
-const { Product } = require('../../models');
+const getRandomArray = require('../../helpers/getRandomArray');
+
+const findNotHealthyFood = require('../../helpers/findNotHealthyFood');
 
 const getUnhealthy = async (req, res) => {
   const { blood } = req.user;
@@ -12,36 +14,18 @@ const getUnhealthy = async (req, res) => {
   let result;
 
   if (req?.query?.all === 'true') {
-    unhealthyProducts = await Product.find({
-      ['groupBloodNotAllowed.' + blood]: true,
-    });
+    unhealthyProducts = await findNotHealthyFood(blood);
 
-    result = [...unhealthyProducts].map(product => ({
+    result = unhealthyProducts.map(product => ({
       product_id: product._id,
       product_title: product.title,
     }));
   } else {
-    unhealthyProducts = await Product.find(
-      {
-        ['groupBloodNotAllowed.' + blood]: true,
-      },
-      '',
-      {
-        skip,
-      },
-    );
+    unhealthyProducts = await findNotHealthyFood(blood, skip);
 
-    const unhealthyProductsRandom = new Set();
-    for (_ of Array.from({ length: unhealthyProducts.length }, (_, i) => i)) {
-      unhealthyProductsRandom.add(
-        unhealthyProducts[Math.floor(Math.random() * unhealthyProducts.length)],
-      );
-      if (unhealthyProductsRandom.size === limit) {
-        break;
-      }
-    }
+    const unhealthyProductsRandom = getRandomArray(unhealthyProducts, limit);
 
-    result = [...unhealthyProductsRandom].map(product => ({
+    result = unhealthyProductsRandom.map(product => ({
       product_id: product._id,
       product_title: product.title,
     }));
