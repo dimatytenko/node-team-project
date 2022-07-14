@@ -1,9 +1,9 @@
 const addDay = require('./add');
 const removeDay = require('./removeById');
-const getForDay = require('./getForDay');
+const getStatsPerDay = require('./getStatsPerDay');
 
 module.exports = {
   addDay,
   removeDay,
-  getForDay,
+  getStatsPerDay,
 };
