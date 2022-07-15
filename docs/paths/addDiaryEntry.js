@@ -14,16 +14,16 @@ module.exports = {
             properties: {
               productId: {
                 type: 'string',
-                description: 'ID продукта',
+                description: 'ID product',
               },
               weight: {
                 type: 'integer',
-                description: 'колличество продукта',
+                description: 'quantity',
               },
               date: {
                 type: 'string',
                 description:
-                  'дата (когда продукт был съеден) в виде строки, в формате YYYY-MM-DD',
+                  'Date (when the product was eaten) in the form of a line, in YYYY-MM-DD format',
               },
             },
             example: {
@@ -53,48 +53,132 @@ module.exports = {
                 data: {
                   type: 'object',
                   properties: {
-                    _id: {
-                      type: 'string',
-                      format: 'ObjectId',
-                      description:
-                        'уникальный ID в журнале (использовать для удаления записи из журнала (diary))',
+                    addedProduct: {
+                      type: 'object',
+                      properties: {
+                        _id: {
+                          type: 'string',
+                          format: 'ObjectId',
+                          description:
+                            'Unique ID in the diary (use to delete the entry from the diary (Diary))',
+                        },
+                        product_id: {
+                          type: 'object',
+                          properties: {
+                            _id: {
+                              type: 'string',
+                              description:
+                                'Backend-generated unique identifier',
+                            },
+                            categories: {
+                              description: `Product's categories`,
+                              type: 'array',
+                              items: {
+                                type: 'string',
+                              },
+                            },
+                            weight: {
+                              type: 'number',
+                              description: `Product's weight in grams`,
+                            },
+                            title: {
+                              type: 'object',
+                              properties: {
+                                en: { type: 'string' },
+                                ua: { type: 'string' },
+                              },
+                              description: `Product's name`,
+                            },
+                            calories: {
+                              type: 'number',
+                              description: `Product's calories per 100 grams`,
+                            },
+                            groupBloodNotAllowed: {
+                              type: 'array',
+                              items: { type: 'mixed' },
+                              description: `Boolean if this product is NOT recommended for a particular blood type`,
+                            },
+                          },
+                        },
+                        day_id: {
+                          type: 'string',
+                          format: 'ObjectId',
+                          description: 'Unique ID day',
+                        },
+                        weight: {
+                          type: 'integer',
+                          format: 'Int32',
+                          description: 'The weight of the eaten product',
+                        },
+                        calories: {
+                          type: 'integer',
+                          format: 'Int32',
+                          description:
+                            'The number of kilocalories in the eaten product',
+                        },
+                        user_id: {
+                          type: 'string',
+                          format: 'ObjectId',
+                          description: 'Unique user ID who owns this entry',
+                        },
+                        createdAt: {
+                          type: 'date',
+                          format: 'isoDate',
+                          description:
+                            'The date of creation of the record is a database',
+                        },
+                        updatedAt: {
+                          type: 'date',
+                          format: 'isoDate',
+                          description:
+                            'The date of the last recording of the recording in the database',
+                        },
+                      },
                     },
-                    product_id: {
-                      type: 'string',
-                      format: 'ObjectId',
-                      description: 'уникальный ID продукта',
-                    },
-                    day_id: {
-                      type: 'string',
-                      format: 'ObjectId',
-                      description: 'уникальный ID дня',
-                    },
-                    weight: {
-                      type: 'integer',
-                      format: 'Int32',
-                      description: 'вес съеденого продукта',
-                    },
-                    calories: {
-                      type: 'integer',
-                      format: 'Int32',
-                      description:
-                        'колличество килокалорий в съеденом продукте',
-                    },
-                    user_id: {
-                      type: 'string',
-                      format: 'ObjectId',
-                      description:
-                        'уникальный ID пользователя которому пренадлежит данная запись',
-                    },
-                    createdAt: {
-                      type: 'date',
-                      format: 'isoDate',
-                      description: 'дата создания записи а БД',
-                    },
-                    updatedAt: {
-                      type: 'date',
-                      format: 'isoDate',
-                      description: 'дата последнего обновления записи в БД',
+                    summary: {
+                      type: 'object',
+                      properties: {
+                        _id: {
+                          type: 'string',
+                          description: 'Backend-generated unique identifier',
+                        },
+                        date: {
+                          description: `Date`,
+                          type: 'date',
+                        },
+                        user_id: {
+                          type: 'string',
+                          description: `User's id`,
+                        },
+                        daily_rate: {
+                          type: 'number',
+                          description: `User's daily calorie intake`,
+                        },
+                        left: {
+                          type: 'number',
+                          description: `Number of calories the user can still eat. The difference between the daily kcal rate and consumed`,
+                        },
+                        consumed: {
+                          type: 'number',
+                          description: `Amount of calories the user has already eaten`,
+                        },
+                        percentage_of_normal: {
+                          type: 'number',
+                          description: `Percentage of consumed to daily kcal rate`,
+                        },
+                        createdAt: {
+                          type: 'date',
+                          format: 'isoDate',
+                          description:
+                            'The date of creation of the record is a database',
+                        },
+                        updatedAt: {
+                          type: 'date',
+                          format: 'isoDate',
+                          description:
+                            'The date of the last recording of the recording in the database',
+                        },
+                      },
                     },
                   },
                 },
@@ -103,14 +187,38 @@ module.exports = {
                 status: 'success',
                 code: 201,
                 data: {
-                  _id: '62cb3422d9b4ae6849a6e38e',
-                  product_id: '5d51694802b2373622ff553b',
-                  day_id: '62cb25463a3dc076b39df817',
-                  user_id: '62c60c0cd34841581a4cc208',
-                  weight: 165,
-                  calories: 1028,
-                  createdAt: '2022-07-10T20:18:42.893Z',
-                  updatedAt: '2022-07-10T20:18:42.893Z',
+                  addedProduct: {
+                    _id: '62d15f40009155ecea04b741',
+                    product_id: {
+                      title: {
+                        en: 'Chicken egg (dry yolk)',
+                        ua: 'Яйце куряче (жовток сухий)',
+                      },
+                      _id: '5d51694802b2373622ff553b',
+                      categories: ['eggs'],
+                      weight: 100,
+                      calories: 623,
+                      groupBloodNotAllowed: [null, true, false, false, false],
+                      __v: 0,
+                    },
+                    day_id: '62d15f40009155ecea04b73f',
+                    user_id: '62c60c0cd34841581a4cc208',
+                    weight: 165,
+                    calories: 1028,
+                    createdAt: '2022-07-15T12:36:16.178Z',
+                    updatedAt: '2022-07-15T12:36:16.178Z',
+                  },
+                  summary: {
+                    _id: '62d15f40009155ecea04b73f',
+                    date: '2022-01-01T00:00:00.000Z',
+                    user_id: '62c60c0cd34841581a4cc208',
+                    daily_rate: 2800,
+                    left: 1772,
+                    consumed: 1028,
+                    percentage_of_normal: 37,
+                    createdAt: '2022-07-15T12:36:16.111Z',
+                    updatedAt: '2022-07-15T12:36:16.245Z',
+                  },
                 },
               },
             },
@@ -122,6 +230,9 @@ module.exports = {
       },
       401: {
         description: 'Not authorized',
+      },
+      404: {
+        description: 'Not found',
       },
       500: {
         description: 'Server error',
