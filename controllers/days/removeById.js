@@ -7,15 +7,9 @@ const removeDay = async (req, res, next) => {
   const { diaryId } = req.params;
   const { _id: userId } = req.user;
 
-  // console.log(diaryId);
-  // console.log(userId);
-
   if (!mongoose.Types.ObjectId.isValid(diaryId)) {
     throw NotFound();
   }
-
-  // console.log(diaryId);
-  // console.log(userId);
 
   const result = await Diary.findOneAndRemove({
     _id: diaryId,
