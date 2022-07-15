@@ -114,3 +114,6 @@ dist
 **/.history
 
 .idea/
+
+#Yarn
+yarn.lock

@@ -1,8 +1,9 @@
 const calcDailyRate = (height, age, desiredWeight, currentWeight) => {
   const dWeight = currentWeight - desiredWeight;
-  const dailyRate =
-    9.99 * currentWeight + 6.25 * height - 4.92 * age - 161 - 10 * dWeight;
-  return Number(dailyRate.toFixed(2));
+  const dailyRate = Math.round(
+    9.99 * currentWeight + 6.25 * height - 4.92 * age - 161 - 10 * dWeight,
+  );
+  return Number(dailyRate);
 };
 // example
 // calcDailyRate(160, 30, 50, 60)
@@ -33,8 +34,8 @@ const calcPercentOf = (path, whole) => {
 // ==> 10
 
 const calcProportion = (whole, kKal, path) => {
-  const newValue = (path * kKal) / whole;
-  return Number(newValue.toFixed(2));
+  const newValue = Math.round((path * kKal) / whole);
+  return Number(newValue);
 };
 // example
 // calcProportion(100, 320, 112)
