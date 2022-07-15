@@ -9,7 +9,7 @@ const getStatsPerDay = async (req, res) => {
   const [year, month, day] = dateString.split('-');
 
   if (!year || !month || !day || year.length < 4) {
-    throw BadRequest('invalid date');
+    throw createError(400, 'Invalid date');
   }
 
   const searchForDay = await Day.findOne({
@@ -17,7 +17,7 @@ const getStatsPerDay = async (req, res) => {
   });
 
   if (!searchForDay) {
-    throw createError(404, `no data for ${dateString}`);
+    throw createError(404, `No data for ${dateString}`);
   }
 
   const { _id: datyId } = searchForDay;
