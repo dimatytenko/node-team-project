@@ -23,10 +23,10 @@ const getStatsPerDay = async (req, res) => {
     throw createError(400, 'Bad request (the wrong date format)');
   }
 
- const dateRequested = new Date(dateString);
- if (dateRequested.toDateString() == 'Invalid Date') {
-    throw BadRequest('Bad request (the wrong date format)');
- }
+  const dateRequested = new Date(dateString);
+  if (dateRequested.toDateString() == 'Invalid Date') {
+    throw createError(400, 'Bad request (the wrong date format)');
+  }
 
   const searchForDay = await Day.findOne({
     $and: [{ user_id: userId }, { date: dateString }],
