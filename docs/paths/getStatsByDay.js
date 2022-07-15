@@ -152,6 +152,9 @@ module.exports = {
       401: {
         description: 'Not authorized',
       },
+      404: {
+        description: 'Not found',
+      },
       500: {
         description: 'Server error',
       },

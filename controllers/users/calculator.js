@@ -1,11 +1,19 @@
 const { User } = require('../../models/user');
+
 const { calcDailyRate } = require('../../helpers/formulas');
+
 const findNotHealthyFood = require('../../helpers/findNotHealthyFood');
+
+const getRandomArray = require('../../helpers/getRandomArray');
+
+const LIMIT = 4;
+
 const calculator = async (req, res) => {
   const { blood, height, age, weight_current, weight_desired } = req.body;
   const { _id, name } = req.user;
 
   const daily_rate = calcDailyRate(height, age, weight_desired, weight_current);
+
   await User.findByIdAndUpdate(
     _id,
     {
@@ -18,7 +26,10 @@ const calculator = async (req, res) => {
     },
     { new: true },
   );
-  const notHealthy = await findNotHealthyFood(blood);
+
+  const notHealthyArr = await findNotHealthyFood(blood);
+  const notHealthy = getRandomArray(notHealthyArr, LIMIT);
+
   res.json({
     status: 'success',
     code: 200,
