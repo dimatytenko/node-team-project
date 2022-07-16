@@ -120,6 +120,39 @@ module.exports = {
                         },
                       },
                     },
+                    summary: {
+                      type: 'object',
+                      properties: {
+                        _id: {
+                          type: 'string',
+                          description: 'Backend-generated unique identifier',
+                        },
+                        date: {
+                          description: `Date`,
+                          type: 'date',
+                        },
+                        user_id: {
+                          type: 'string',
+                          description: `User's id`,
+                        },
+                        daily_rate: {
+                          type: 'number',
+                          description: `User's daily calorie intake`,
+                        },
+                        left: {
+                          type: 'number',
+                          description: `Number of calories the user can still eat. The difference between the daily kcal rate and consumed`,
+                        },
+                        consumed: {
+                          type: 'number',
+                          description: `Amount of calories the user has already eaten`,
+                        },
+                        percentage_of_normal: {
+                          type: 'number',
+                          description: `Percentage of consumed to daily kcal rate`,
+                        },
+                      },
+                    },
                   },
                 },
               },
@@ -128,14 +161,14 @@ module.exports = {
                 code: 200,
                 data: {
                   user: {
-                    email: 'user27890@gmail.com',
+                    _id: '62cf566cc24495ee8f18f637',
                     name: 'user1',
                     blood: 1,
                     height: 170,
-                    age: 27,
-                    weight_current: 60,
-                    weight_desired: 55,
-                    daily_rate: 1200,
+                    age: 30,
+                    weight_current: 65,
+                    weight_desired: 60,
+                    daily_rate: 1353,
                   },
                   notHealthy: [
                     {
@@ -163,6 +196,17 @@ module.exports = {
                       __v: 0,
                     },
                   ],
+                  summary: {
+                    _id: '62d31b94d6bab1fcfebb2022',
+                    date: '2022-07-16T00:00:00.000Z',
+                    user_id: '62cf566cc24495ee8f18f637',
+                    daily_rate: 1353,
+                    left: 792,
+                    consumed: 561,
+                    percentage_of_normal: 41,
+                    createdAt: '2022-07-16T20:12:04.332Z',
+                    updatedAt: '2022-07-16T20:27:10.016Z',
+                  },
                 },
               },
             },
