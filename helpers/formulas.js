@@ -1,3 +1,5 @@
+const { BadRequest } = require('http-errors');
+
 const calcDailyRate = (height, age, desiredWeight, currentWeight) => {
   const dWeight = currentWeight - desiredWeight;
   const dailyRate = Math.round(
@@ -43,15 +45,19 @@ const calcProportion = (whole, kKal, path) => {
 // ==> 358.4 kkal
 
 const formatDate = date => {
-  var dd = date.getDate();
-  if (dd < 10) dd = '0' + dd;
+  try {
+    var dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
 
-  var mm = date.getMonth() + 1;
-  if (mm < 10) mm = '0' + mm;
+    var mm = date.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
 
-  var yyyy = date.getFullYear();
+    var yyyy = date.getFullYear();
 
-  return yyyy + '-' + mm + '-' + dd;
+    return yyyy + '-' + mm + '-' + dd;
+  } catch (error) {
+    throw BadRequest('Bad request (the wrong date format)');
+  }
 };
 
 // example
