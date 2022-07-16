@@ -26,7 +26,7 @@ const userSchema = Schema(
     blood: {
       type: Number,
       enum: [1, 2, 3, 4],
-      default: 1,
+      default: null,
     },
     height: {
       type: Number,

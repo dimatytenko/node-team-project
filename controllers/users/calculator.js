@@ -1,6 +1,8 @@
-const { User } = require('../../models/user');
+const { User } = require('../../models');
 
-const { calcDailyRate } = require('../../helpers/formulas');
+const { calcDailyRate, formatDate } = require('../../helpers/formulas');
+
+const updDay = require('../../helpers/createAndUpdateDay');
 
 const findNotHealthyFood = require('../../helpers/findNotHealthyFood');
 
@@ -14,7 +16,7 @@ const calculator = async (req, res) => {
 
   const daily_rate = calcDailyRate(height, age, weight_desired, weight_current);
 
-  await User.findByIdAndUpdate(
+  const updUser = await User.findByIdAndUpdate(
     _id,
     {
       blood,
@@ -27,8 +29,14 @@ const calculator = async (req, res) => {
     { new: true },
   );
 
+  req.user = updUser;
+
   const notHealthyArr = await findNotHealthyFood(blood);
   const notHealthy = getRandomArray(notHealthyArr, LIMIT);
+
+  const today = formatDate(new Date());
+
+  const daySummary = await updDay({ date: today, user: req.user });
 
   res.json({
     status: 'success',
@@ -45,6 +53,7 @@ const calculator = async (req, res) => {
         daily_rate,
       },
       notHealthy,
+      summary: daySummary,
     },
   });
 };
