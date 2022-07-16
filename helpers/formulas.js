@@ -42,10 +42,27 @@ const calcProportion = (whole, kKal, path) => {
 // (100 gram / 320 kkal) = (112 gram / x kkal)
 // ==> 358.4 kkal
 
+const formatDate = date => {
+  var dd = date.getDate();
+  if (dd < 10) dd = '0' + dd;
+
+  var mm = date.getMonth() + 1;
+  if (mm < 10) mm = '0' + mm;
+
+  var yyyy = date.getFullYear();
+
+  return yyyy + '-' + mm + '-' + dd;
+};
+
+// example
+// formatDate("2012-01-26T13:51:50.417Z")
+// ==> "2021-01-26"
+
 module.exports = {
   calcDailyRate,
   calcConsumed,
   calcLeft,
   calcPercentOf,
   calcProportion,
+  formatDate,
 };
