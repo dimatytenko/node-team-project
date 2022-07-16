@@ -1,6 +1,11 @@
-const { User } = require('../../models/user');
+const { User, Day } = require('../../models');
 
-const { calcDailyRate } = require('../../helpers/formulas');
+const {
+  calcDailyRate,
+  formatDate,
+  calcLeft,
+  calcPercentOf,
+} = require('../../helpers/formulas');
 
 const findNotHealthyFood = require('../../helpers/findNotHealthyFood');
 
@@ -30,6 +35,36 @@ const calculator = async (req, res) => {
   const notHealthyArr = await findNotHealthyFood(blood);
   const notHealthy = getRandomArray(notHealthyArr, LIMIT);
 
+  const today = formatDate(new Date());
+
+  const dayUserArr = await Day.find({
+    date: today,
+    user_id: _id,
+  });
+
+  let dayUser = {};
+
+  if (dayUserArr.length == 0) {
+    dayUser = await Day.create({ date: today, user_id: _id });
+  } else {
+    dayUser = dayUserArr[0];
+  }
+
+  const { _id: dayId, consumed } = dayUser;
+
+  const daySummary = await Day.findByIdAndUpdate(
+    dayId,
+    {
+      daily_rate,
+      left: calcLeft(daily_rate, consumed),
+      consumed,
+      percentage_of_normal: calcPercentOf(consumed, daily_rate),
+    },
+    {
+      new: true,
+    },
+  );
+
   res.json({
     status: 'success',
     code: 200,
@@ -45,6 +80,7 @@ const calculator = async (req, res) => {
         daily_rate,
       },
       notHealthy,
+      summary: daySummary,
     },
   });
 };
