@@ -1,6 +1,11 @@
-const { User } = require('../../models/user');
+const { User, Day } = require('../../models');
 
-const { calcDailyRate, formatDate } = require('../../helpers/formulas');
+const {
+  calcDailyRate,
+  formatDate,
+  calcLeft,
+  calcPercentOf,
+} = require('../../helpers/formulas');
 
 const findNotHealthyFood = require('../../helpers/findNotHealthyFood');
 
@@ -45,7 +50,7 @@ const calculator = async (req, res) => {
     dayUser = dayUserArr[0];
   }
 
-  const { consumed } = dayUser;
+  const { _id: dayId, consumed } = dayUser;
 
   const daySummary = await Day.findByIdAndUpdate(
     dayId,
