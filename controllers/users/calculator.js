@@ -1,11 +1,8 @@
-const { User, Day } = require('../../models');
+const { User } = require('../../models');
 
-const {
-  calcDailyRate,
-  formatDate,
-  calcLeft,
-  calcPercentOf,
-} = require('../../helpers/formulas');
+const { calcDailyRate, formatDate } = require('../../helpers/formulas');
+
+const updDay = require('../../helpers/createAndUpdateDay');
 
 const findNotHealthyFood = require('../../helpers/findNotHealthyFood');
 
@@ -19,7 +16,7 @@ const calculator = async (req, res) => {
 
   const daily_rate = calcDailyRate(height, age, weight_desired, weight_current);
 
-  await User.findByIdAndUpdate(
+  const updUser = await User.findByIdAndUpdate(
     _id,
     {
       blood,
@@ -32,38 +29,14 @@ const calculator = async (req, res) => {
     { new: true },
   );
 
+  req.user = updUser;
+
   const notHealthyArr = await findNotHealthyFood(blood);
   const notHealthy = getRandomArray(notHealthyArr, LIMIT);
 
   const today = formatDate(new Date());
 
-  const dayUserArr = await Day.find({
-    date: today,
-    user_id: _id,
-  });
-
-  let dayUser = {};
-
-  if (dayUserArr.length == 0) {
-    dayUser = await Day.create({ date: today, user_id: _id });
-  } else {
-    dayUser = dayUserArr[0];
-  }
-
-  const { _id: dayId, consumed } = dayUser;
-
-  const daySummary = await Day.findByIdAndUpdate(
-    dayId,
-    {
-      daily_rate,
-      left: calcLeft(daily_rate, consumed),
-      consumed,
-      percentage_of_normal: calcPercentOf(consumed, daily_rate),
-    },
-    {
-      new: true,
-    },
-  );
+  const daySummary = await updDay({ date: today, user: req.user });
 
   res.json({
     status: 'success',
