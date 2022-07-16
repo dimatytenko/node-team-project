@@ -7,7 +7,7 @@ module.exports = {
       {
         name: 'diaryId',
         in: 'path',
-        description: 'ID records in the journal for the day',
+        description: 'Diary entry ID for the eaten product ',
         required: true,
         type: 'string',
         format: 'ObjectId',
