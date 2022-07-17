@@ -29,6 +29,12 @@ const login = async (req, res) => {
         user: {
           name: user.name,
           email: user.email,
+          blood: user.blood,
+          height: user.height,
+          age: user.age,
+          weight_current: user.weight_current,
+          weight_desired: user.weight_desired,
+          daily_rate: user.daily_rate,
         },
       },
     });
