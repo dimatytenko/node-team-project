@@ -10,10 +10,7 @@ const getAll = async (req, res) => {
     const searchString = search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'); //экранирование строки
 
     products = await Product.find({
-      $or: [
-        { 'title.en': { $regex: searchString, $options: 'i' } },
-        { 'title.ua': { $regex: searchString, $options: 'i' } },
-      ],
+      'title.en': { $regex: searchString, $options: 'i' },
     }).limit(50);
   }
 
