@@ -25,4 +25,9 @@ router.patch(
   ctrlWrapper(ctrl.calculator),
 );
 
+router.get('/google', ctrlWrapper(ctrl.googleAuth));
+
+router.get('/google-redirect', ctrlWrapper(ctrl.googleRedirect));
+
+
 module.exports = router;
