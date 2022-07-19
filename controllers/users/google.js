@@ -3,6 +3,8 @@ const axios = require('axios');
 const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 
+const bcrypt = require('bcrypt');
+
 const googleAuth = async (req, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: process.env.GOOGLE_CLIENT_ID,
@@ -45,20 +47,46 @@ const googleRedirect = async (req, res) => {
   });
 
   const email = userData.data.email;
+  //! - мой код -------------------------------------
+  const userName = userData.data.name;
+  //! -----------------------------------------------
+  let user = await User.findOne({ email }); //! -  const
 
-  const user = await User.findOne({ email });
+  //! - мой код -------------------------------------
+  if (!user) {
+    encryptedPassword = await bcrypt.hash(genPass(), 10);
 
-  if (user) {
-    const payload = { id: user._id, email };
-    const token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1d' });
-
-    await User.findByIdAndUpdate(user._id, { token });
-
-    return res.redirect(
-      `${process.env.FRONTEND_URL}/google-redirect/?token=${token}&name=${user.name}&email=${user.email}`,
-    );
-  } else {
-    return res.redirect(`${process.env.FRONTEND_URL}/register`);
+    user = await User.create({
+      email,
+      name: userName,
+      password: encryptedPassword,
+    });
   }
+  //! -----------------------------------------------
+  // if (user) {
+  const payload = { id: user._id, email };
+  const token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1d' });
+
+  await User.findByIdAndUpdate(user._id, { token });
+
+  return res.redirect(
+    `${process.env.FRONTEND_URL}/google-redirect/?token=${token}&name=${user.name}&email=${user.email}`,
+  );
+  //  } else {
+  //    return res.redirect(`${process.env.FRONTEND_URL}/register`);
+  //  }
 };
+
+function genPass() {
+  var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var passwordLength = 12;
+  var password = '';
+
+  for (var i = 0; i <= passwordLength; i++) {
+    var randomNumber = Math.floor(Math.random() * chars.length);
+    password += chars.substring(randomNumber, randomNumber + 1);
+  }
+  return password;
+}
+
 module.exports = { googleAuth, googleRedirect };
