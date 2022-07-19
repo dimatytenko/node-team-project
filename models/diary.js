@@ -1,7 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-// const Joi = require('joi');
-
 const diarySchema = Schema(
   {
     product_id: {
@@ -32,13 +30,5 @@ const diarySchema = Schema(
 );
 
 const Diary = model('diarys', diarySchema, 'diarys');
-
-// const dayAdd = Joi.object({
-//   date: Joi.date().required(),
-//   productId: Joi.string().required(),
-//   weight: Joi.number().positive().required(),
-// });
-
-// const joiSchema = { dayAdd };
 
 module.exports = Diary;
