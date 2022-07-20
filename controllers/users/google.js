@@ -29,6 +29,9 @@ const googleRedirect = async (req, res) => {
   const urlObj = new URL(fullUrl);
   const urlParams = queryString.parse(urlObj.search);
   const code = urlParams.code;
+  if (urlParams?.error == 'access_denied') {
+    return res.redirect(`${process.env.FRONTEND_URL}/login/`);
+  }
   const tokenData = await axios({
     url: `https://oauth2.googleapis.com/token`,
     method: 'post',
