@@ -7,12 +7,14 @@ const getAll = async (req, res) => {
     products = await Product.find({});
   } else {
     const { search } = req.query;
-    const searchModified = search.replace('%20', ' ');
+
+    const searchModified = search.replaceAll('%20', ' ');
 
     const searchString = searchModified.replace(
       /[-[\]{}()*+?.,\\^$|#\s]/g,
       '\\$&',
     );
+
     products = await Product.find({
       'title.en': { $regex: searchString, $options: 'i' },
     }).limit(50);
