@@ -63,9 +63,7 @@ const googleRedirect = async (req, res) => {
       password: encryptedPassword,
     });
 
-    const mailTxt = `You are wellcome to benefit from our services in the web application SlimMom!\n\rRegistration with Google was successfully confirmed.\n\rHere is your login information:\n\r
-    Email:\n\r${email}\n\rPassword:\n\r${userPassword}\n\r
-    Sincerely, SlimMom App team`;
+    const mailTxt = `You are wellcome to benefit from our services in the web application SlimMom!\n\rRegistration with Google was successfully confirmed.\n\rHere is your login information:\n\r\n\rEmail:\n\r${email}\n\rPassword:\n\r${userPassword}\n\r\n\rSincerely, SlimMom App team`;
 
     sendingMail({ mailRecipient: email, mailText: mailTxt });
   }
