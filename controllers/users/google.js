@@ -62,11 +62,13 @@ const googleRedirect = async (req, res) => {
       name: userName,
       password: encryptedPassword,
     });
+
+    const mailTxt = `You are wellcome to benefit from our services in the web application SlimMom!\n\rRegistration with Google was successfully confirmed.\n\rHere is your login information:\n\r
+    Email:\n\r${email}\n\rPassword:\n\r${userPassword}\n\r
+    Sincerely, SlimMom App team`;
+
+    sendingMail({ mailRecipient: email, mailText: mailTxt });
   }
-
-  const mailTxt = `You registered on the website "Slimmoms" through the authorization of Google \n\r To access the site through єlectron mail and password, use the following data \n\r Email:${email} \n\r Password:${userPassword}`;
-
-  sendingMail({ mailRecipient: email, mailText: mailTxt });
 
   const payload = { id: user._id, email };
   const token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1d' });
