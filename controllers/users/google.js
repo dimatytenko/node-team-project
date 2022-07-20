@@ -4,6 +4,7 @@ const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 const sendingMail = require('../../helpers/sendingMail');
 
+const bcrypt = require('bcrypt');
 const randomize = require('randomatic');
 
 const googleAuth = async (req, res) => {
