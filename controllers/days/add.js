@@ -55,7 +55,7 @@ const addDay = async (req, res, next) => {
     product_id: productId,
     day_id,
     user_id: userId,
-    weight,
+    weight: Math.round(weight),
     calories,
   });
 

@@ -1,23 +1,22 @@
 const { Day } = require('../models');
 const { formatDate, calcLeft, calcPercentOf } = require('../helpers/formulas');
+const { MethodNotAllowed } = require('http-errors');
 
 const updDay = async ({
   date = formatDate(new Date()),
   user = {},
   addConsumed = 0,
 }) => {
-  //   console.log(date);
-  //   console.log(user);
-  //   console.log(addConsumed);
-
   const { _id: user_id, daily_rate } = user;
+
+  if (!daily_rate) {
+    throw MethodNotAllowed('User daily_rate is NULL');
+  }
 
   const dayUserArr = await Day.find({
     date,
     user_id,
   });
-
-  //   console.log(dayUserArr);
 
   let dayUser = {};
 
