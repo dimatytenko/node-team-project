@@ -10,6 +10,15 @@ module.exports = {
         name: 'search',
         description: 'Product to find',
       },
+      {
+        in: 'query',
+        name: 'lang',
+        default: 'en',
+        schema: {
+          enum: ['en', 'ua'],
+        },
+        description: 'Search language',
+      },
     ],
     responses: {
       200: {

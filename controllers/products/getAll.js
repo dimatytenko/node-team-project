@@ -15,8 +15,15 @@ const getAll = async (req, res) => {
       '\\$&',
     );
 
+    let lang = req.query.lang;
+    if (lang !== 'ua') {
+      lang = 'en';
+    }
+
+    const searchIn = `title.${lang}`;
+
     products = await Product.find({
-      'title.en': { $regex: searchString, $options: 'i' },
+      [searchIn]: { $regex: searchString, $options: 'i' },
     }).limit(50);
   }
 
