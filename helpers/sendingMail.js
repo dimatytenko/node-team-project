@@ -16,7 +16,8 @@ const sendingMail = async ({ mailRecipient, mailText = '', mailHtml = '' }) => {
   const emailOptions = {
     from: MAIL_FOR_SENDING,
     to: mailRecipient,
-    subject: 'Data for access to the site SlimMoms',
+    subject:
+      'CONGRATULATIONS, YOU HAVE SUCCESSFULLY REGISTERED ON SlimMoms WEBSITE!',
     text: mailText,
     html: mailHtml,
   };

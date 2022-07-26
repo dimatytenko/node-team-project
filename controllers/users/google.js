@@ -4,6 +4,7 @@ const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 const sendingMail = require('../../helpers/sendingMail');
 
+const bcrypt = require('bcrypt');
 const randomize = require('randomatic');
 
 const googleAuth = async (req, res) => {
@@ -28,6 +29,9 @@ const googleRedirect = async (req, res) => {
   const urlObj = new URL(fullUrl);
   const urlParams = queryString.parse(urlObj.search);
   const code = urlParams.code;
+  if (urlParams?.error == 'access_denied') {
+    return res.redirect(`${process.env.FRONTEND_URL}/login/`);
+  }
   const tokenData = await axios({
     url: `https://oauth2.googleapis.com/token`,
     method: 'post',
@@ -61,11 +65,11 @@ const googleRedirect = async (req, res) => {
       name: userName,
       password: encryptedPassword,
     });
+
+    const mailTxt = `You are wellcome to benefit from our services in the web application SlimMom!\n\rRegistration with Google was successfully confirmed.\n\rHere is your login information:\n\r\n\rEmail:\n\r${email}\n\rPassword:\n\r${userPassword}\n\r\n\rSincerely, SlimMom App team`;
+
+    sendingMail({ mailRecipient: email, mailText: mailTxt });
   }
-
-  const mailTxt = `You registered on the website "Slimmoms" through the authorization of Google \n\r To access the site through єlectron mail and password, use the following data \n\r Email:${email} \n\r Password:${userPassword}`;
-
-  sendingMail({ mailRecipient: email, mailText: mailTxt });
 
   const payload = { id: user._id, email };
   const token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1d' });
