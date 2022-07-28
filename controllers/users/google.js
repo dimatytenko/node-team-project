@@ -77,7 +77,7 @@ const googleRedirect = async (req, res) => {
   await User.findByIdAndUpdate(user._id, { token });
 
   return res.redirect(
-    `${process.env.FRONTEND_URL}/google-redirect/?token=${token}&name=${user.name}&email=${user.email}`,
+    `${process.env.FRONTEND_URL}/google-redirect/?token=${token}&name=${user.name}&email=${user.email}&blood=${user.blood}&height=${user.height}&age=${user.age}&weight_current=${user.weight_current}&weight_desired=${user.weight_desired}&daily_rate=${user.daily_rate}`,
   );
 };
 module.exports = { googleAuth, googleRedirect };
