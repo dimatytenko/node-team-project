@@ -8,12 +8,14 @@ const getAll = async (req, res) => {
   } else {
     const { search } = req.query;
 
-    const searchModified = search.replaceAll('%20', ' ');
+    // const searchModified = search.replaceAll('%20', ' ');
 
-    const searchString = searchModified.replace(
+    const searchString = search.replace(
       /[-[\]{}()*+?.,\\^$|#\s]/g,
       '\\$&',
     );
+
+    console.log('searchString',searchString)
 
     let lang = req.query.lang;
     if (lang !== 'ua') {
